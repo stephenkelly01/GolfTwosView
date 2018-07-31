@@ -38,4 +38,34 @@ public class Player {
     public String getPlayerName() {
         return this.playerName;
     }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+        public float getBalance () {
+            return this.balance;
+        }
+    public void setBalanceDate(String balanceDate) {
+        this.playerName = balanceDate;
+        }
+    public String getBalanceDate() {
+        return this.balanceDate;
+    }
+    public void setTwosAmount(float twosAmount) {
+        this.twosAmount = twosAmount;
+    }
+    public float getTwosAmount () {
+        return this.twosAmount;
+    }
+
+    public void setTwosDate(String twosDate) {
+        this.twosDate = twosDate;
+    }
+
+    public String getTwosDate() {
+        return this.twosDate;
+    }
+
+
+
 }
