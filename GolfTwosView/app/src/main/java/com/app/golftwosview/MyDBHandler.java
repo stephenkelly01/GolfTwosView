@@ -1,5 +1,6 @@
 package com.app.golftwosview;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
@@ -17,7 +18,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     //initialize the database
      MyDBHandler(Player context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        super( null, DATABASE_NAME, factory, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -59,33 +60,5 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return db.update(TABLE_NAME, args, COLUMN_ID + "=" + ID, null) > 0;
 
     }
-    public void updatePlayer(View view)
-    {
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        boolean result;
-        if (dbHandler.updateHandler(Integer.parseInt(
-                playerID.getText().toString()), playerName.getText().toString())) result = true;
-        else result = false;
-        if (result) {
-            playerid.setText("");
-            playername.setText("");
-            lst.setText("Record Updated");
-        } else {
-            playerid.setText("No Match Found");
-        }
-    }
-    public void findPlayer(View view) {
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        Player player =
-                dbHandler.findHandler(playerName.getText().toString());
-        if (playerName != null) {
-            lst.setText(String.valueOf(player.getID()) +  " " + player.getPlayerName() + System.getProperty("line.separator"));
-            playerid.setText("");
-            playerName.setText("");
-        } else {
-            lst.setText("No Match Found");
-            playerID.setText("");
-            playerName.setText("");
-        }
-    }
+
 }
