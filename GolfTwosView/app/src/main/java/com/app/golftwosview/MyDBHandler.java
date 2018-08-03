@@ -1,11 +1,10 @@
 package com.app.golftwosview;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.view.View;
+import android.content.Context;
 
 
 public class MyDBHandler extends SQLiteOpenHelper {
@@ -17,8 +16,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NAME = "PlayerName";
 
     //initialize the database
-     MyDBHandler(Player context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super( null, DATABASE_NAME, factory, DATABASE_VERSION);
+    public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -31,6 +30,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public void addHandler(Player player) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, player.getID());
+        values.put(COLUMN_NAME, player.getPlayerName());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_NAME, null, values);
+        db.close();
     }
 
     public Player findHandler(String PlayerName) {
