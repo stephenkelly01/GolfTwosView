@@ -11,12 +11,13 @@
 
     <EditText
         android:id="@+id/playername"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:inputType=""
         android:text="Player Name"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/playerid"
@@ -29,10 +30,32 @@
         android:textStyle="bold"
         android:visibility="visible" />
 
+    <EditText
+        android:id="@+id/playeramount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:fontFamily="sans-serif"
+        android:inputType=""
+        android:text="Amount"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/playerdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:fontFamily="sans-serif"
+        android:inputType=""
+        android:text="Current Date"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
     <Button
         android:id="@+id/btnFind"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:onClick="findPlayer"
         android:text="Find Player"
@@ -41,25 +64,28 @@
 
     <Button
         android:id="@+id/btnUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="125pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:onClick="updatePlayer"
         android:text="Update Player"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
+
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="match_parent"
-        android:layout_height="125pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:onClick="addPlayer"
         android:text="Add Player"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/lst"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:inputType=""
         android:textStyle="bold"

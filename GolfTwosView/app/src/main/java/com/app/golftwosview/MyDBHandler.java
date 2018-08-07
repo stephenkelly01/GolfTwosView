@@ -6,6 +6,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.content.Context;
 
+import java.util.Date;
+
 
 public class MyDBHandler extends SQLiteOpenHelper {
     //information of database
@@ -14,15 +16,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "Player";
     public static final String COLUMN_ID = "PlayerID";
     public static final String COLUMN_NAME = "PlayerName";
-
-    //initialize the database
+    public static final String COLUMN_AMOUNT = "0.00";
+    private static final String COLUMN_DATE = "ddMMyyy";
+    /* initialize the database */
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE" + TABLE_NAME + "(" + COLUMN_ID +
-                "INTEGER PRIMARYKEY," + COLUMN_NAME + "TEXT )";
+                "INTEGER PRIMARYKEY," + COLUMN_NAME + "TEXT + COLUMN_AMOUNT + amount + COLUMN_DATE + date )";
         db.execSQL(CREATE_TABLE);
     }
     @Override
@@ -33,28 +36,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, player.getID());
         values.put(COLUMN_NAME, player.getPlayerName());
+        values.put(COLUMN_AMOUNT, player.getAmount());
+        values.put(COLUMN_DATE, player.getDate());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME, null, values);
         db.close();
-    }
-
-    public Player findHandler(String PlayerName) {
-
-        String query = "Select * FROM " + TABLE_NAME + "WHERE" + COLUMN_NAME + "EQUALS" + "'" + PlayerName + "'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        Player player = new Player();
-        if (cursor.moveToFirst()) {
-            cursor.moveToFirst();
-            player.setID(Integer.parseInt(cursor.getString(0)));
-            player.setPlayerName (cursor.getString(1));
-            cursor.close();
-        } else {
-            player = null;
-        }
-        db.close();
-        return player;
-
     }
 
     public boolean updateHandler(int ID, String name) {
