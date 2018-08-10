@@ -1,7 +1,5 @@
 package com.app.golftwosview;
 
-import java.util.Date;
-
 public class Player {
     // fields
     private int playerID;
@@ -37,13 +35,14 @@ public class Player {
         return this.playerName;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount( double amount) {
         this.amount = amount;
     }
 
     public double getAmount() {
         return this.amount;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
