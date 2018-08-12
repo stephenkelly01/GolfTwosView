@@ -1,13 +1,27 @@
 package com.app.golftwosview;
 
+import com.javahelps.externalsqliteimporter.*;
+import com.javahelps.importexternaldatabase.*;
+
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+//import android.support.annotation.NonNull;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.BreakIterator;
 import java.util.Date;
+import java.io.File;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,12 +31,47 @@ public class MainActivity extends AppCompatActivity {
     //private double amount;
     private  String textDate;
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE };
+    private final boolean fromExternalSource = false;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Request for permission to read external storage
+        if (fromExternalSource && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+        } else {
+            showQuotes();
+        }
+    }
+
+    private void showQuotes() {
+        DatabaseAccess databaseAccess;
+        if (fromExternalSource) {
+            // Check the external database file. External database must be available for the first time deployment.
+            String externalDirectory = Environment.getExternalStorageDirectory().getAbsolutePath() + "/database";
+            File dbFile = new File(externalDirectory, DatabaseOpenHelper.DATABASE_NAME);
+            if (!dbFile.exists()) {
+                return;
+            }
+            // If external database is avaliable, deploy it
+            databaseAccess = DatabaseAccess.getInstance(this, externalDirectory);
+        } else {
+            // From assets
+            databaseAccess = DatabaseAccess.getInstance(this, null);
+        }
+
+        databaseAccess.open();
+        List<String> quotes = databaseAccess.getQuotes();
+        databaseAccess.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
+        //this.listView.setAdapter(adapter);
     }
 
     public void updatePlayer(View view) {

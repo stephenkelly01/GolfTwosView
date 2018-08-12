@@ -8,7 +8,7 @@ public class DatabaseOpenHelper extends ExternalSQLiteOpenHelper {
     /**
      * Name of the database.
      */
-    private static final String DATABASE_NAME = "quotes.db";
+    public static final String DATABASE_NAME = "lisheen.db";
 
     /**
      * Version of the database. Only used to import from assets.
