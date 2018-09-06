@@ -6,18 +6,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.content.Context;
 
-import java.util.Date;
-
 
 public class MyDBHandler extends SQLiteOpenHelper {
     //information of database
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "playerDB.db";
+    private static final String DATABASE_NAME = "lisheen.db";
     private static final String TABLE_NAME = "Player";
     private static final int  COLUMN_ID = 0;
     private static final String COLUMN_NAME = "PlayerName";
-    private static final double COLUMN_AMOUNT = 0.00;
-    private static final String COLUMN_DATE = "ddMMyyy";
 
     /* initialize the database */
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -35,11 +31,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public void addHandler(Player player) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, player.getID());
+
+       ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, player.getPlayerName());
-        values.put(COLUMN_AMOUNT, player.getAmount());
-        values.put(COLUMN_DATE, player.getDate());
+        values.put(COLUMN_ID, player.getID());
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME, null, values);
@@ -49,10 +45,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public boolean updateHandler(int ID, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues args = new ContentValues();
-        args.put(COLUMN_ID, ID);
+        args.put(COLUMN_NAME, COLUMN_ID);
         args.put(COLUMN_NAME, name);
         return db.update(TABLE_NAME, args, COLUMN_ID + "=" + ID, null) > 0;
 
+    }
+    public Player findHandler(String playername) {
+        String query = "Select * FROM " + TABLE_NAME + "WHERE" + COLUMN_NAME + " = " + "'" + playername + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Player player = new Player();
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            player.setID(Integer.parseInt(cursor.getString(0)));
+            player.setPlayerName(cursor.getString(1));
+            cursor.close();
+        } else {
+            player = null;
+        }
+        db.close();
+        return player;
     }
 
 }

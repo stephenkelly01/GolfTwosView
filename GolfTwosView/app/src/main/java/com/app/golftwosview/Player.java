@@ -4,18 +4,15 @@ public class Player {
     // fields
     private int playerID;
     private String playerName;
-    private double amount;
-    private String date;
 
     // constructors
     public Player() {
     }
 
-    public Player(int id, String playerName, double amount, String date) {
+    public Player(int id, String playerName) {
         this.playerID = id;
         this.playerName = playerName;
-        this.amount = amount;
-        this.date = date;
+
 
     }
     // properties
@@ -34,21 +31,4 @@ public class Player {
     public String getPlayerName() {
         return this.playerName;
     }
-
-    public void setAmount( double amount) {
-        this.amount = amount;
-    }
-
-    public double getAmount() {
-        return this.amount;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDate() {
-        return this.date;
-    }
-
 }

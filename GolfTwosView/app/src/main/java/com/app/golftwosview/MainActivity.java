@@ -22,15 +22,12 @@ import java.text.BreakIterator;
 import java.util.Date;
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
 
     private int textID ;
     private  String textName;
-    private  double textAmount;
-    //private double amount;
-    private  String textDate;
-
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE };
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         databaseAccess.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
-        //this.listView.setAdapter(adapter);
+        //this.textID.setAdapter(adapter);
     }
 
     public void updatePlayer(View view) {
@@ -81,14 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void findPlayer(View view) {
 
-        /*MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        Player player =
-                dbHandler.findHandler(String.valueOf(R.id.lst));
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        Player player = null;
+        player = dbHandler.findHandler(player.getPlayerName());
         if ( player != null) {
-            System.out.print("match found");
+            R.id.setText(String.valueOf(player.getID()) + " " + player.getPlayerName() + System.getProperty("line.separator"));
+            R.id.playername.setText("");
+            R.id.setText("");
+       } else {
 
-        } else {System.out.print("match not found");}
-        */
+            R.id.lst.setText("No Match Found");
+            R.id.lst.playerID.setText("");
+            R.id.lst.setText("");
+        }
+
     }
     public void addPlayer(View view) {
 
